@@ -1,24 +1,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name     : myapp2
+  name     : myapi
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     name     : in-cluster
-    namespace: app2
+    namespace: myapi
   source:
-    path   : "HelmCharts/MyChart2"
-    repoURL: "git@github.com:adv4000/argocd.git"
+    path   : "helm/myapi"
+    repoURL: "git@github.com:MisyuraIlya/argo-app.git"
     targetRevision: HEAD
     helm:
       valueFiles:
-      - values_dev.yaml
+      - values.yaml
       parameters:
       - name: "container.image"
-        value: adv4000/app2:v2
+        value: spetsar/myapi:latest
 
   project: default
   syncPolicy:

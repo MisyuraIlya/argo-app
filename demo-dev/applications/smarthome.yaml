@@ -1,24 +1,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name     : myapp1
+  name     : smarthome
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     name     : in-cluster
-    namespace: app1
+    namespace: smarthome
   source:
-    path   : "HelmCharts/MyChart1"
-    repoURL: "git@github.com:adv4000/argocd.git"
+    path   : "helm/smarthome"
+    repoURL: "git@github.com:MisyuraIlya/argo-app.git"
     targetRevision: HEAD
     helm:
       valueFiles:
-      - values_dev.yaml
+      - values.yaml
       parameters:
       - name: "container.image"
-        value: adv4000/app1:v3
+        value: spetsar/smarthome:latest
 
   project: default
   syncPolicy:
